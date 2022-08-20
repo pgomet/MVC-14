@@ -2,8 +2,11 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 
-router.get('/', (req, res) => {
-    Post.findAll({
+router.get('/post/:id', (req, res) => {
+    Post.findOne({
+      where: {
+        id: req.params.id
+      },
       attributes: [
         'id',
         'post_url',
@@ -27,14 +30,40 @@ router.get('/', (req, res) => {
       ]
     })
       .then(dbPostData => {
-        const posts = dbPostData.map(post => post.get({ plain: true }));
-        // pass a single post object into the homepage template
-        res.render('homepage', { posts });
+        if (!dbPostData) {
+          res.status(404).json({ message: 'No post found with this id' });
+          return;
+        }
+  
+        // serialize the data
+        const post = dbPostData.get({ plain: true });
+  
+        // pass data to template
+        res.render('single-post', {
+            post,
+            loggedIn: req.session.loggedIn
+          });          
       })
       .catch(err => {
         console.log(err);
         res.status(500).json(err);
       });
   });
+
+router.get('/post/:id', (req, res) => {
+    const post = {
+      id: 1,
+      post_url: 'https://handlebarsjs.com/guide/',
+      title: 'Handlebars Docs',
+      created_at: new Date(),
+      vote_count: 10,
+      comments: [{}, {}],
+      user: {
+        username: 'test_user'
+      }
+    };
+  
+    res.render('single-post', { post });
+});
 
 module.exports = router;
