@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/pgomet/MVC-14#readme",
   "dependencies": {
+    "connect-session-sequelize": "^7.1.4",
     "express": "^4.18.1",
-    "express-handlebars": "^6.0.6"
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3"
   },
   "devDependencies": {
     "jest": "^28.1.3"
