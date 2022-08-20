@@ -16,3 +16,7 @@ Post.create({
   post_url: req.body.post_url,
   user_id: req.session.user_id
 })
+
+router.delete('/:id', withAuth, (req, res) => {
+  // inner logic remains the same...
+});
