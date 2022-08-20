@@ -9,4 +9,3 @@ Create a CMS-style blog that can publish articles, blog posts, thoughts and opin
 * User can add a comment
 * User can create a new blog post
 * User can delete or update blog post
-* User is able to sign out
