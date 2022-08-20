@@ -3,6 +3,13 @@ const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
+const post = dbPostData.get({ plain: true });
+
+res.render('edit-post', {
+ post,
+ loggedIn: true
+});
+
 router.get('/', (req, res) => {
     Post.findAll({
       where: {
@@ -41,9 +48,5 @@ router.get('/', (req, res) => {
         res.status(500).json(err);
       });
 });
-
-router.get('/', withAuth, (req, res) => {
-    // inner logic remains the same...
-  });
 
 module.exports = router;
