@@ -18,5 +18,4 @@ Post.create({
 })
 
 router.delete('/:id', withAuth, (req, res) => {
-  // inner logic remains the same...
 });
